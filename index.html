@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://github.com/nadav52/Matala-3/raw/main/White.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 2em;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            overflow: auto;
+            box-sizing: border-box;
+            margin: 2em auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 1em;
+        }
+        form {
+            display: grid;
+            gap: 1em;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+            font-size: 1em;
+            margin-bottom: 0.5em;
+        }
+        input[type="text"], input[type="number"], select {
+            border: 1px solid #ddd;
+            padding: 0.75em;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        input[type="submit"] {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 1em;
+            transition: background 0.3s;
+        }
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 2em;
+            padding: 1em;
+            background: #e9ecef;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Car Price Prediction</h1>
+        <form action="/predict" method="post">
+            <label for="manufactor">Manufacturer:</label>
+            <select id="manufactor" name="manufactor" required>
+                <option value="">Select Manufacturer</option>
+                <option value="אאודי">אאודי</option>
+                <option value="אופל">אופל</option>
+                <option value="אלפא רומיאו">אלפא רומיאו</option>
+                <option value="ב.מ.וו">ב.מ.וו</option>
+                <option value="דייהטסו">דייהטסו</option>
+                <option value="הונדה">הונדה</option>
+                <option value="וולוו">וולוו</option>
+                <option value="טויוטה">טויוטה</option>
+                <option value="יונדאי">יונדאי</option>
+                <option value="לקסוס">לקסוס</option>
+                <option value="מאזדה">מאזדה</option>
+                <option value="מיני">מיני</option>
+                <option value="מיצובישי">מיצובישי</option>
+                <option value="מרצדס">מרצדס</option>
+                <option value="ניסאן">ניסאן</option>
+                <option value="סובארו">סובארו</option>
+                <option value="סוזוקי">סוזוקי</option>
+                <option value="סיטרואן">סיטרואן</option>
+                <option value="סקודה">סקודה</option>
+                <option value="פולקסווגן">פולקסווגן</option>
+                <option value="פורד">פורד</option>
+                <option value="פיג'ו">פיג'ו</option>
+                <option value="קיה">קיה</option>
+                <option value="קרייזלר">קרייזלר</option>
+                <option value="רנו">רנו</option>
+                <option value="שברולט">שברולט</option>
+            </select>
+
+            <label for="Year">Year:</label>
+            <input type="number" id="Year" name="Year" min="1970" max="2024" required>
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" required>
+
+            <label for="Hand">Number of Previous Owners:</label>
+            <input type="number" id="Hand" name="Hand" min="0" max="10" required>
+
+            <label for="Gear">Gear Type:</label>
+            <select id="Gear" name="Gear" required>
+                <option value="">Select Gear Type</option>
+                <option value="אוטומטית">אוטומטית</option>
+                <option value="טיפטרוניק">טיפטרוניק</option>
+                <option value="ידנית">ידנית</option>
+                <option value="לא מוגדר">לא מוגדר</option>
+                <option value="רובוטית">רובוטית</option>
+            </select>
+
+            <label for="capacity_Engine">Engine Capacity (in liters):</label>
+            <input type="number" id="capacity_Engine" name="capacity_Engine" min="0" step="0.1" required>
+
+            <label for="Engine_type">Engine Type:</label>
+            <select id="Engine_type" name="Engine_type" required>
+                <option value="">Select Engine Type</option>
+                <option value="היברידי">היברידי</option>
+                <option value="חשמלי">חשמלי</option>
+                <option value="טורבו דיזל">טורבו דיזל</option>
+                <option value="בנזין">בנזין</option>
+                <option value="גז">גז</option>
+                <option value="דיזל">דיזל</option>
+            </select>
+
+            <label for="Prev_ownership">Previous Ownership:</label>
+            <select id="Prev_ownership" name="Prev_ownership" required>
+                <option value="">Select Previous Ownership</option>
+                <option value="אחר">אחר</option>
+                <option value="השכרה">השכרה</option>
+                <option value="חברה">חברה</option>
+                <option value="לא מוגדר">לא מוגדר</option>
+                <option value="ליסינג">ליסינג</option>
+                <option value="מונית">מונית</option>
+                <option value="ממשלתי">ממשלתי</option>
+                <option value="פרטית">פרטית</option>
+            </select>
+
+            <label for="Curr_ownership">Current Ownership:</label>
+            <select id="Curr_ownership" name="Curr_ownership" required>
+                <option value="">Select Current Ownership</option>
+                <option value="אחר">אחר</option>
+                <option value="השכרה">השכרה</option>
+                <option value="חברה">חברה</option>
+                <option value="לא מוגדר">לא מוגדר</option>
+                <option value="ליסינג">ליסינג</option>
+                <option value="פרטית">פרטית</option>
+            </select>
+
+            <label for="Area">Area:</label>
+            <select id="Area" name="Area" required>
+                <option value="">Select Area</option>
+                <!-- List of options as in the original code -->
+                <option value="אזור השרון והסביבה">אזור השרון והסביבה</option>
+                <option value="אילת והערבה">אילת והערבה</option>
+                <option value="אשדוד - אשקלון">אשדוד - אשקלון</option>
+                <option value="באר שבע והסביבה">באר שבע והסביבה</option>
+                <option value="בית שמש והסביבה">בית שמש והסביבה</option>
+                <option value="בקעת אונו">בקעת אונו</option>
+                <option value="גדרה יבנה והסביבה">גדרה יבנה והסביבה</option>
+                <option value="גליל">גליל</option>
+                <option value="גליל ועמקים">גליל ועמקים</option>
+                <option value="הוד השרון והסביבה">הוד השרון והסביבה</option>
+                <option value="זכרון - בנימינה">זכרון - בנימינה</option>
+                <option value="חדרה וישובי עמק חפר">חדרה וישובי עמק חפר</option>
+                <option value="חולון - בת ים">חולון - בת ים</option>
+                <option value="חיפה וחוף הכרמל">חיפה וחוף הכרמל</option>
+                <option value="טבריה והסביבה">טבריה והסביבה</option>
+                <option value="יישובי השומרון">יישובי השומרון</option>
+                <option value="ירושלים והסביבה">ירושלים והסביבה</option>
+                <option value="כרמיאל והסביבה">כרמיאל והסביבה</option>
+                <option value="מודיעין והסביבה">מודיעין והסביבה</option>
+                <option value="מושבים בדרום">מושבים בדרום</option>
+                <option value="מושבים במרכז">מושבים במרכז</option>
+                <option value="מושבים בצפון">מושבים בצפון</option>
+                <option value="מושבים בשפלה">מושבים בשפלה</option>
+                <option value="מושבים בשרון">מושבים בשרון</option>
+                <option value="נס ציונה - רחובות">נס ציונה - רחובות</option>
+                <option value="נתניה והסביבה">נתניה והסביבה</option>
+                <option value="עכו - נהריה">עכו - נהריה</option>
+                <option value="עמק יזרעאל">עמק יזרעאל</option>
+                <option value="פרדס חנה - כרכור">פרדס חנה - כרכור</option>
+                <option value="פתח תקוה והסביבה">פתח תקוה והסביבה</option>
+                <option value="קיסריה והסביבה">קיסריה והסביבה</option>
+                <option value="קריות">קריות</option>
+                <option value="ראש העין והסביבה">ראש העין והסביבה</option>
+                <option value="ראשל"צ והסביבה">ראשל"צ והסביבה</option>
+                <option value="רחובות">רחובות</option>
+                <option value="רמלה - לוד">רמלה - לוד</option>
+                <option value="רמת גן - גבעתיים">רמת גן - גבעתיים</option>
+                <option value="רמת השרון - הרצליה">רמת השרון - הרצליה</option>
+                <option value="רעננה - כפר סבא">רעננה - כפר סבא</option>
+                <option value="תל אביב">תל אביב</option>
+            </select>
+
+            <label for="City">City:</label>
+            <input type="text" id="City" name="City" required>
+
+            <label for="Pic_num">Picture Number:</label>
+            <input type="number" id="Pic_num" name="Pic_num" min="0" required>
+
+           <label for="Cre_date">Creation Date:</label>
+           <input type="text" id="Cre_date" name="Cre_date" placeholder="dd/mm/yy">
+
+           <label for="Repub_date">Republication Date:</label>
+           <input type="text" id="Repub_date" name="Repub_date" placeholder="dd/mm/yy">
+
+           <label for="Description">Description:</label>
+           <textarea id="Description" name="Description" rows="2" cols="50" placeholder="Enter description"></textarea>
+            
+
+            <label for="Color">Color:</label>
+            <input type="text" id="Color" name="Color" required>
+
+            <label for="Km">Kilometers:</label>
+            <input type="number" id="Km" name="Km" min="0" required>
+
+            <label for="Test">Test:</label>
+            <input type="text" id="Test" name="Test" placeholder="dd/mm/yy">
+
+            <input type="submit" value="Predict">
+        </form>
+
+        {% if prediction_text %}
+        <div class="result">
+            {{ prediction_text }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
