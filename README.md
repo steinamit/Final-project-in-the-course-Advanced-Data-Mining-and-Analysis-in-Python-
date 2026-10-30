@@ -1,25 +1,41 @@
 # Used-Car Price Prediction: Web App
 
-Predicts the price of a used car in Israel and serves the model through a small Flask web app: fill in the car's details in a form and get a predicted price.
+> A used-car price model packaged as a small web app: fill in the car, get a price.
 
-**Context:** final project, Advanced Data Mining and Analysis in Python · **Team:** Amit Stein, Nadav Mashiach
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-150458?logo=pandas&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikitlearn&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white)
+
+## Highlights
+
+- Reproducible pipeline split into data preparation, training and serving.
+- ElasticNet tuned by grid search with 10-fold cross-validation; model and preprocessor saved for serving.
+- Flask API with an HTML form for live predictions.
 
 ## How it works
-| File | Role |
-|---|---|
-| `car_data_prep.py` | Cleans the listings: numeric parsing, median imputation, IQR outlier removal on year, model-name cleanup |
-| `model_training.py` | 80/20 split, scaling and one-hot encoding, ElasticNet tuned with `GridSearchCV` (10-fold CV), permutation importance; saves `trained_model.pkl` and `preprocessor.pkl` |
-| `api.py` | Flask app: `/` serves the form, `/predict` returns the predicted price |
-| `index.html` | The input form |
-| `dataset (2).csv` | 1,500 used-car listings (20 columns) |
 
-## Run locally
+`car_data_prep.py` cleans the raw listings, `model_training.py` trains and saves the model, and `api.py` loads it and serves predictions at `/predict`.
+
+## Repository structure
+
+| Path | Description |
+|---|---|
+| `car_data_prep.py` | Cleaning: numeric parsing, imputation, IQR outlier removal, model-name cleanup |
+| `model_training.py` | Split, preprocessing, ElasticNet + GridSearchCV, permutation importance, model export |
+| `api.py` | Flask app: `/` form, `/predict` endpoint |
+| `index.html` | Input form |
+| `dataset (2).csv` | 1,500 used-car listings |
+
+## Getting started
+
 ```bash
 pip install -r requirements.txt
-python model_training.py   # trains and saves the model
-python api.py              # Flask expects index.html inside a templates/ folder
+python model_training.py   # train and save the model
+python api.py              # Flask expects index.html inside templates/
 ```
 
-**Tools:** Python · pandas · scikit-learn · Flask
+## Context
 
-The analysis notebook with the evaluation (test RMSE ₪11,057) is in [Final-project-in-a-machine-learning-course](https://github.com/steinamit/Final-project-in-a-machine-learning-course).
+Final project, Advanced Data Mining and Analysis in Python. Team project by Amit Stein and Nadav Mashiach.
+
+## Credits
+
+The analysis and evaluation (test RMSE ₪11,057) are in [Final-project-in-a-machine-learning-course](https://github.com/steinamit/Final-project-in-a-machine-learning-course).
