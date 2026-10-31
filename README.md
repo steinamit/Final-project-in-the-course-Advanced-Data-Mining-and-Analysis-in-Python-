@@ -4,6 +4,10 @@
 
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) ![pandas](https://img.shields.io/badge/pandas-150458?logo=pandas&logoColor=white) ![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikitlearn&logoColor=white) ![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white)
 
+![Demo: filling in a car and getting a predicted price](docs/demo.gif)
+
+*A 2015 Hyundai i35 with 144,000 km, entered into the app.*
+
 ## Highlights
 
 - Reproducible pipeline split into data preparation, training and serving.
